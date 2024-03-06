@@ -105,9 +105,11 @@ void RawProcessor::setDNGPropertiesFromInput()
     m_negative->SetDefaultCropSize(sizes->width, sizes->height);
 
     // Set white balance (CameraNeutral)
+    //FIXME: what does this actually do?
+    //FIXME: some pictures have 0 in cam_mul leading to NaNs; corrected here with 0-override but is that correct?
     dng_vector cameraNeutral(iparams->colors);
     for (int i = 0; i < iparams->colors; i++)
-        cameraNeutral[i] = 1.0 / colors->cam_mul[i];
+        cameraNeutral[i] = m_RawProcessor->imgdata.color.cam_mul[i] == 0 ? 0.0 : 1.0 / m_RawProcessor->imgdata.color.cam_mul[i];
     m_negative->SetCameraNeutral(cameraNeutral);
 
     // BlackLevel & WhiteLevel

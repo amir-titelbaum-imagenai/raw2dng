@@ -12,7 +12,7 @@ SET(RAW2DNG_VERSION_PATCH 2)
 CONFIGURE_FILE ( "${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake"
                  "${CMAKE_CURRENT_BINARY_DIR}/config.h" )
 
-SET( EXIV2_MIN_VERSION "0.21" )
+SET( EXIV2_MIN_VERSION "0.27" )
 FIND_PACKAGE( Exiv2 )
 INCLUDE_DIRECTORIES( ${EXIV2_INCLUDE_DIR} )
 ADD_DEFINITIONS( ${EXIV2_DEFINITIONS}) 
@@ -28,7 +28,7 @@ ADD_DEFINITIONS( ${ZLIB_DEFINITIONS} )
 
 INCLUDE_DIRECTORIES( ${raw2dng_SOURCE_DIR}/libdng 
                      ${raw2dng_SOURCE_DIR}/libdng/dng-sdk/source 
-                     ${PROJECT_BINARY_DIR} )
+                     ${CMAKE_CURRENT_BINARY_DIR} )
 
 ADD_EXECUTABLE( raw2dng
                 ${CMAKE_CURRENT_SOURCE_DIR}/raw2dng.cpp
